@@ -1,0 +1,299 @@
+anevia-soap-common (2.7.8) stable; urgency=medium
+
+  * Don't execute non read-only SOAP call when the server is in maintenance (DVR-12242)
+
+ -- Étienne Dupuis <e.dupuis@ateme.com>  Wed, 27 Sep 2023 14:09:14 +0200
+
+anevia-soap-common (2.7.7) stable; urgency=medium
+
+  * Change authentication log level from warning to eror (DVR-11914)
+
+ -- Étienne Dupuis <e.dupuis@ateme.com>  Thu, 01 Jun 2023 14:39:14 +0200
+
+anevia-soap-common (2.7.6) stable; urgency=medium
+
+  * Return http 401 status in case of missing credentials in basic auth http headers (DVR-11692)
+
+ -- Étienne Dupuis <e.dupuis@ateme.com>  Mon, 22 May 2023 17:10:36 +0200
+
+anevia-soap-common (2.7.5) stable; urgency=medium
+
+  * Fix LDAP link in documentation (DVR-10833)
+
+ -- Étienne Dupuis <e.dupuis@ateme.com>  Fri, 31 Mar 2023 11:18:28 +0200
+
+anevia-soap-common (2.7.4) stable; urgency=medium
+
+  * Don't display internal information, log exception chaining and display result value (DVR-11230)
+  * If present, display return value in public log (DVR-11230)
+  * Add ldap authentification to soap api (DVR-10833)
+  * fix .htaccess files build (DVR-10833)
+
+ -- Étienne Dupuis <e.dupuis@ateme.com>  Tue, 28 Mar 2023 09:10:54 +0200
+
+anevia-soap-common (2.7.3) stable; urgency=medium
+
+  * Publish packages on Nexus pypi-dev-hosted instead of pypi.anevia.com
+
+ -- Viet Anh LE <vle@ateme.com>  Fri, 10 Mar 2023 16:01:42 +0100
+
+anevia-soap-common (2.7.2) stable; urgency=medium
+
+  * Fix wrong condition if reboot command have failed (DVR-10998)
+  * Allow return value when status code is an error (DVR-10902)
+
+ -- Viet Anh LE <vle@ateme.com>  Thu, 09 Mar 2023 16:52:56 +0100
+
+anevia-soap-common (2.7.1) stable; urgency=medium
+
+  * Remove old way to determine version
+  * Allow monitor user for SOAP request
+  * soapsh: add ability to disable authentication
+
+ -- Étienne Dupuis <e.dupuis@ateme.com>  Mon, 02 Jan 2023 11:03:55 +0100
+
+anevia-soap-common (2.7.0) stable; urgency=medium
+
+  [ Étienne Dupuis ]
+  * Add ability to raise error when non admin user is used for some methods (DVR-5272)
+  * Declare read-only methods as such. Other methods are RW by default (DVR-5272)
+  * Allow SOAP helper to authenticate both in HTTP and HTTPS (DVR-5272)
+  * Only admin is allowed to perform RW calls (DVR-5272)
+  * Fix client authentication when in HTTPS (DVR-5272)
+  * Fixed bad type checking (DVR-5221)
+  * Remove code samples (DVR-4155)
+
+ -- Étienne Dupuis <etienne@edupuis-linux>  Wed, 21 Sep 2022 07:50:01 +0200
+
+anevia-soap-common (2.6.1) stable; urgency=medium
+
+  * Raise error when SOAP call Reboot_server is called in container (DVR-7540)
+  * Raise error when reboot command fails
+
+ -- Alain Laporte <a.laporte@ateme.com>  Wed, 03 Aug 2022 11:48:34 +0200
+
+anevia-soap-common (2.6.0) stable; urgency=medium
+
+  * Bump branch for NEA-DVR-SW 4.15 due to 1b57f71df9ea8c16c3d546ddc91845783e8ab5d9 (DVR-5306)
+  * Use CIRM, remove Jessie build and suffix version
+
+ -- Alain Laporte <a.laporte@ateme.com>  Thu, 16 Jun 2022 21:55:04 +0200
+
+anevia-soap-common (2.5.2) stable; urgency=medium
+
+  * Log API requests and responses in public logs public (DVR-5306)
+  * Add where soap-common is published
+
+ -- David Flattin <dflattin@ateme.com>  Thu, 16 Jun 2022 11:39:29 +0200
+
+anevia-soap-common (2.5.1) stable; urgency=medium
+
+  * Add requirements.txt with ipython and update documentation
+  * Update to Debian Bullseye (FLAM-1889)
+
+ -- Daniel Prasanth <dprasanth@ateme.com>  Thu, 20 Jan 2022 17:25:41 +0100
+
+anevia-soap-common (2.5.0) stable; urgency=medium
+
+  * Bump branch for NEA-DVR 4.12
+  * Change shebang from #!/bin/sh to #!/bin/bash (DVR-2730)
+  * Update files due to new branch for NEA-DVR 4.10 and 4.11
+
+ -- Benoit Decagny <b.decagny@ateme.com>  Wed, 08 Sep 2021 15:08:54 +0200
+
+anevia-soap-common (2.4.2) stable; urgency=medium
+
+  * Add command to install soapsh locally to README
+
+ -- afoisset <afoisset@ateme.com>  Thu, 29 Apr 2021 14:54:55 +0200
+
+anevia-soap-common (2.4.1) stable; urgency=medium
+
+  * Catch Throwable for PHP7 compatibility (FLAM-1653)
+
+ -- Alain Laporte <alaporte@anevia.com>  Thu, 18 Mar 2021 18:55:44 +0100
+
+anevia-soap-common (2.4.0) stable; urgency=medium
+
+  * Remove support of Python2, enforce Python3
+
+ -- Alain Laporte <alaporte@anevia.com>  Thu, 18 Mar 2021 12:10:18 +0100
+
+anevia-soap-common (2.3.12) stable; urgency=medium
+
+  * Fix handling of 'base64Binary' values in Python3
+
+ -- Benoît Ryder <bryder@anevia.com>  Mon, 25 Jan 2021 10:46:53 +0100
+
+anevia-soap-common (2.3.11) stable; urgency=medium
+
+  * Fix wrong shebang
+
+ -- Mélanie Benoit <mbenoit@anevia.com>  Fri, 11 Dec 2020 15:48:07 +0100
+
+anevia-soap-common (2.3.10) stable; urgency=medium
+
+  * Fix Python package versionning
+  * Log parameters for the "return" log
+  * Use JSON_UNESCAPED_SLASHES
+  * Replace array() with []
+  * Remove end php tag
+
+ -- Mélanie Benoit <mbenoit@anevia.com>  Thu, 03 Dec 2020 18:36:20 +0100
+
+anevia-soap-common (2.3.9) stable; urgency=medium
+
+  * Update execfile for python3
+
+ -- Sylvain Premel <spremel@anevia.com>  Mon, 05 Oct 2020 16:30:14 +0200
+
+anevia-soap-common (2.3.8) unstable; urgency=medium
+
+  * Fix suds dependency for Python3
+  * Publish PyPI package
+  * Update CI
+
+ -- Benoît Ryder <bryder@anevia.com>  Thu, 02 Apr 2020 11:00:40 +0200
+
+anevia-soap-common (2.3.7) stable; urgency=medium
+
+  * Add gitlab-ci
+
+ -- Mélanie Benoit <mbenoit@anevia.com>  Fri, 21 Jun 2019 11:24:41 +0200
+
+anevia-soap-common (2.3.6) stable; urgency=medium
+
+  * Fix compatibility with Python3
+
+ -- Mélanie Benoit <mbenoit@anevia.com>  Mon, 04 Mar 2019 17:38:36 +0100
+
+anevia-soap-common (2.3.5) stable; urgency=medium
+
+  * Add HTTPS support
+
+ -- Mélanie Benoit <mbenoit@anevia.com>  Wed, 03 Oct 2018 11:30:47 +0200
+
+anevia-soap-common (2.3.4) stable; urgency=medium
+
+  * Properly cast all complex type keys to str
+
+ -- Mélanie Benoit <mbenoit@anevia.com>  Tue, 12 Jun 2018 11:57:49 +0200
+
+anevia-soap-common (2.3.3) stable; urgency=medium
+
+  * Fix the outgoing bitrate displayed two time (#7406)
+
+ -- Mélanie Benoit <mbenoit@anevia.com>  Wed, 13 Dec 2017 14:29:11 +0100
+
+anevia-soap-common (2.3.2) stable; urgency=medium
+
+  * Define __file__ for scripts run by 'soapsh -s'
+
+ -- Benoît Ryder <bryder@anevia.com>  Thu, 10 Aug 2017 15:43:13 +0200
+
+anevia-soap-common (2.3.1) stable; urgency=medium
+
+  * Reflect phanes common directory renaming
+
+ -- Florian Gaillot <fgaillot@anevia.com>  Fri, 14 Apr 2017 11:42:22 +0200
+
+anevia-soap-common (2.3.0) stable; urgency=medium
+
+  * First Jessie release
+  * Add feedback on docrd() call and display used URL
+  * Fix soapsh doc file name
+  * Upgrade for Jessie, lintian clean
+  * Rename soapsh.py to soapsh
+  * Replace .htaccess directives by apache 2.4 ones
+  * Reflect anevia commands location change
+
+ -- Florian Gaillot <fgaillot@anevia.com>  Mon, 20 Mar 2017 11:54:33 +0100
+
+anevia-soap-common (2.2.3) stable; urgency=medium
+
+  * Remove use of config.inc.php
+  * Add docrd() method to soapsh to open SOAP doc in browser
+  * Fix compatibility with suds > 0.4 (Jurko's fork)
+  * Replace non-breaking space by a space
+  * Really fix compatibility with suds > 0.4
+  * Add python-all-dev in build-deps, needed for jessie
+
+ -- Pierre Seznec <pseznec@anevia.com>  Mon, 26 Dec 2016 17:02:44 +0100
+
+anevia-soap-common (2.2.2) stable; urgency=medium
+
+  * Handle redirections for WSDL fetch
+
+ -- Benoît Ryder  <bryder@anevia.com>  Thu, 09 Jun 2016 18:47:58 +0200
+
+anevia-soap-common (2.2.1) stable; urgency=medium
+
+  * Fix parsing of 'occurs' in SoapClient
+  * Properly parse elements which are both optional=True and occurs=(0, 1)
+  * Fix parsing of null struct values with occurs=(0,1)
+  * Allow to pass a single value if occurs=(0,1)
+  * Add precision on dates not supporting decimal seconds (#723)
+
+ -- Benoît Ryder <bryder@anevia.com>  Wed, 22 Jul 2015 16:36:20 +0200
+
+anevia-soap-common (2.2.0) unstable; urgency=medium
+
+  * Update for wheezy, keep lenny compatibility
+  * Add Python setup script
+  * Allow to generate versionned WSDLs (tintegration:#5942)
+  * Use dynamic versionning based on debian/changelog
+     - no need to manually update version in doc/conf.py and Soap*.inc.php
+     - version is based on debian/changelog
+     - break compatibility, existing SOAP packages have to be updated
+     - see [5982] for details, and update process
+  * soapsh.py
+     - display status code in exception message
+     - support URIs of versionned WSDLs
+     - add README, imported from soapsh Git repository
+     - allow to run a script, add a non-interactive mode
+  * Exception and error code updates
+     - support new phanes exceptions (introduced in phanes 1.15.0)
+     - keep support of legacy exceptions (for lenny)
+     - add status codes ranges to documentation
+  * Change shebang: use python2.7, not python
+  * Add dateTime standard type
+  * Fix parsing of base64Binary in returned values
+
+ -- Benoît Ryder <bryder@anevia.com>  Wed, 28 Jan 2015 12:29:14 +0100
+
+anevia-soap-common (2.1.2) unstable; urgency=medium
+
+  * Handle non-ASCII characters in replies (#344)
+  * Handle case when *_gen.py is run with "python *_gen.py"
+
+ -- Benoît Ryder <bryder@anevia.com>  Fri, 25 Jul 2014 11:03:08 +0200
+
+anevia-soap-common (2.1.1) unstable; urgency=medium
+
+  * Improve compatibility with IPython 1.0
+  * Allow types with namespace (ex. 'xsd:dateTime')
+  * Fix name of 'return' field in documentation
+
+ -- Benoît Ryder <bryder@anevia.com>  Wed, 07 May 2014 16:11:45 +0200
+
+anevia-soap-common (2.1.0) unstable; urgency=low
+
+  * Add a debhelper buildsystem for more automatic build
+  * Add a script to check consistency of API/doc/Debian versions
+  * Explicitely use python2.7 in shebang
+
+ -- Benoît Ryder <bryder@anevia.com>  Tue, 10 Dec 2013 10:47:53 +0100
+
+anevia-soap-common (2.0.1) unstable; urgency=low
+
+  * Update SoapClient documentation
+  * Support base64Binary XMLSchema type
+
+ -- Benoît Ryder <bryder@anevia.com>  Wed, 17 Jul 2013 10:39:42 +0200
+
+anevia-soap-common (2.0.0) unstable; urgency=low
+
+  * Initial Debian package version
+
+ -- Benoît Ryder <bryder@anevia.com>  Thu, 14 Mar 2013 10:44:55 +0100
+

@@ -1,0 +1,294 @@
+{
+    "sut": {
+        "host": "nea-dvr-dev.lab1.anevia.com",
+        "port": "8080",
+        "user": "admin",
+        "pwd": "paris",
+        "service_type": "ott"
+    },
+    "saf": {
+        "saf_low_latency": {
+            "streamAdaptations": [
+                "sa_dash_ll",
+                "sa_hls_ll"
+            ]
+        },
+        "saf_low_latency_scr": {
+            "streamAdaptations": [
+                "sa_dash_ll_scr",
+                "sa_hls_ll_scr"
+            ]
+        },
+        "saf": {
+            "streamAdaptations": [
+                "sa_dash",
+                "sa_hls"
+            ]
+        },
+        "saf_scr": {
+            "streamAdaptations": [
+                "sa_dash_scr",
+                "sa_hls_scr"
+            ]
+        }
+    },
+    "sa_default": {
+        "liveWindowDuration": 60
+    },
+    "sa": {
+        "sa_dash": {
+            "outputFormat": "dash",
+            "mpdTemplateType": "time",
+            "subtitlesFormat": "ttmlpassthrough",
+            "chunkDuration": 2,
+            "mpdMinBufferTime": 1.0
+        },
+        "sa_dash_scr": {
+            "outputFormat": "dash",
+            "mpdTemplateType": "time",
+            "subtitlesFormat": "ttmlpassthrough",
+            "chunkDuration": 10,
+            "mpdMinBufferTime": 1.0,
+            "scramblingType": "cpix"
+        },
+        "sa_dash_ll": {
+            "outputFormat": "dash",
+            "mpdTemplateType": "time",
+            "subtitlesFormat": "ttmlpassthrough",
+            "chunkDuration": 10,
+            "mpdMinBufferTime": 1.0,
+            "lowLatency": true
+        },
+        "sa_dash_ll_scr": {
+            "outputFormat": "dash",
+            "mpdTemplateType": "time",
+            "subtitlesFormat": "ttmlpassthrough",
+            "chunkDuration": 10,
+            "mpdMinBufferTime": 1.0,
+            "lowLatency": true,
+            "scramblingType": "cpix"
+        },
+        "sa_hls": {
+            "outputFormat": "hls",
+            "subtitlesFormat": "webvtt",
+            "mediaFormat": "fmp4",
+            "chunkDuration": 2,
+            "hlsProgramDateTimeMode": "repeat",
+            "hlsPartialSegmentDuration": 1
+        },
+        "sa_hls_scr": {
+            "outputFormat": "hls",
+            "subtitlesFormat": "webvtt",
+            "mediaFormat": "fmp4",
+            "chunkDuration": 10,
+            "hlsProgramDateTimeMode": "repeat",
+            "hlsPartialSegmentDuration": 1,
+            "scramblingType": "cpix",
+            "encryptionMethod": "sampleAes"
+        },
+        "sa_hls_ll": {
+            "outputFormat": "hls",
+            "subtitlesFormat": "webvtt",
+            "mediaFormat": "fmp4",
+            "chunkDuration": 10,
+            "hlsProgramDateTimeMode": "repeat",
+            "hlsPartialSegmentDuration": 1,
+            "lowLatency": true
+        },
+        "sa_hls_ll_scr": {
+            "outputFormat": "hls",
+            "subtitlesFormat": "webvtt",
+            "mediaFormat": "fmp4",
+            "chunkDuration": 10,
+            "scramblingType": "cpix",
+            "encryptionMethod": "sampleAes",
+            "hlsProgramDateTimeMode": "repeat",
+            "hlsPartialSegmentDuration": 1,
+            "lowLatency": true
+        }
+    },
+    "ott": {
+        "disk": "disk1",
+        "database": "localDatabase",
+        "chunkDurations": [
+            "2",
+            "4",
+            "6",
+            "10"
+        ]
+    },
+    "live": {
+        "channel": {
+            "nb_channel": 3,
+            "scrambling": false,
+            "streamers": {
+                "unknow_streamer_ll": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ]
+            },
+            "type": "ts-generic",
+            "options": {
+                "type": "standard",
+                "streamAdaptationFamily": "saf",
+                "archiveDuration": 1980,
+                "archiveLifecycle": [
+                    {
+                        "action": "delete-unused-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    },
+                    {
+                        "action": "delete-all-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    }
+                ],
+                "dvbTxtConversion:": true,
+                "dvbSubConversion": true,
+                "sparseArchiveDuration": 1980
+            }
+        },
+        "channel_ll": {
+            "nb_channel": 3,
+            "scrambling": false,
+            "streamers": {
+                "unknow_streamer_ll": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ]
+            },
+            "type": "ts-generic",
+            "options": {
+                "type": "standard",
+                "streamAdaptationFamily": "saf_low_latency",
+                "archiveDuration": 1980,
+                "archiveLifecycle": [
+                    {
+                        "action": "delete-unused-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    },
+                    {
+                        "action": "delete-all-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    }
+                ],
+                "lowLatency": true,
+                "dvbTxtConversion:": true,
+                "dvbSubConversion": true,
+                "sparseArchiveDuration": 1980
+            }
+        },
+        "channel_scr": {
+            "nb_channel": 3,
+            "scrambling": true,
+            "streamers": {
+                "unknow_streamer_ll": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ]
+            },
+            "type": "ts-generic",
+            "options": {
+                "type": "standard",
+                "streamAdaptationFamily": "saf_scr",
+                "archiveDuration": 1980,
+                "archiveLifecycle": [
+                    {
+                        "action": "delete-unused-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    },
+                    {
+                        "action": "delete-all-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    }
+                ],
+                "dvbTxtConversion:": true,
+                "dvbSubConversion": true,
+                "sparseArchiveDuration": 1980
+            }
+        },
+        "channel_ll_scr": {
+            "nb_channel": 3,
+            "scrambling": true,
+            "streamers": {
+                "unknow_streamer_ll": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ]
+            },
+            "type": "ts-generic",
+            "options": {
+                "type": "standard",
+                "streamAdaptationFamily": "saf_low_latency_scr",
+                "archiveDuration": 1980,
+                "archiveLifecycle": [
+                    {
+                        "action": "delete-unused-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    },
+                    {
+                        "action": "delete-all-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    }
+                ],
+                "dvbTxtConversion:": true,
+                "dvbSubConversion": true,
+                "sparseArchiveDuration": 1980,
+                "lowLatency": true
+            }
+        }
+    },
+    "npvr": {},
+    "vod": {},
+    "sources": {
+        "unknow_streamer_ll": {
+            "ip": "239.10.0.1",
+            "interface": "lan1.42",
+            "source_ports": [
+                "20000",
+                "20001",
+                "20002",
+                "20003",
+                "20004",
+                "20005",
+                "20010",
+                "20011",
+                "20012"
+            ]
+        }
+    },
+    "scrambling_conf": {
+        "scrambling": true,
+        "scramblingConf": [
+            {
+                "name": "_default",
+                "value": {
+                    "cpix": {
+                        "serverName": "warehouse",
+                        "cpixId": "scrambling.cpix"
+                    }
+                }
+            }
+        ],
+        "cpixFile": "scrambling.cpix"
+    }
+}

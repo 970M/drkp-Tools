@@ -1,0 +1,222 @@
+{
+    "sut": {
+        "host": "nea-dvr-dev.lab1.anevia.com",
+        "port": "8080",
+        "user": "admin",
+        "pwd": "paris",
+        "service_type": "ott"
+    },
+    "saf": {
+        "saf_1": {
+            "streamAdaptations": [
+                "dash_time_scr",
+                "hls_v7_ts_scr",
+                "cmaf_scr"
+            ]
+        },
+        "saf_2": {
+            "streamAdaptations": [
+                "dash_time",
+                "hls_v7_ts",
+                "cmaf"
+            ]
+        }
+    },
+    "sa_default": {
+        "liveWindowDuration": 60
+    },
+    "sa": {
+        "cmaf_scr": {
+            "outputFormat": "cmaf",
+            "subtitlesFormat": "imsc1",
+            "chunkDuration": 2,
+            "scramblingType": "cpix"
+        },
+        "dash_time_scr": {
+            "outputFormat": "dash",
+            "mpdTemplateType": "time",
+            "subtitlesFormat": "ttmlpassthrough",
+            "chunkDuration": 2,
+            "scramblingType": "cpix"
+        },
+        "hls_v7_ts_scr": {
+            "outputFormat": "hls7",
+            "mediaFormat": "ts",
+            "subtitlesFormat": "dvbpassthrough",
+            "chunkDuration": 2,
+            "scramblingType": "cpix",
+            "encryptionMethod": "sampleAes"
+        },
+        "cmaf": {
+            "outputFormat": "cmaf",
+            "subtitlesFormat": "imsc1",
+            "chunkDuration": 2
+        },
+        "dash_time": {
+            "outputFormat": "dash",
+            "mpdTemplateType": "time",
+            "subtitlesFormat": "ttmlpassthrough",
+            "chunkDuration": 2
+        },
+        "hls_v7_ts": {
+            "outputFormat": "hls7",
+            "mediaFormat": "ts",
+            "subtitlesFormat": "dvbpassthrough",
+            "chunkDuration": 2
+        }
+    },
+    "ott": {
+        "disk": "disk1",
+        "database": "localDatabase",
+        "chunkDurations": [
+            "2",
+            "4",
+            "6",
+            "10"
+        ]
+    },
+    "live": {
+        "channel_1_scr": {
+            "nb_channel": 2,
+            "scrambling": "true",
+            "streamers": {
+                "streamer_lg_1": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ]
+            },
+            "type": "ts-generic",
+            "options": {
+                "type": "standard",
+                "streamAdaptationFamily": "saf_1",
+                "archiveDuration": 1980,
+                "archiveLifecycle": [
+                    {
+                        "action": "delete-unused-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    },
+                    {
+                        "action": "delete-all-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    }
+                ],
+                "dvbTxtConversion:": "true",
+                "dvbSubConversion": "true"
+            }
+        },
+        "channel_2": {
+            "nb_channel": 3,
+            "scrambling": "false",
+            "streamers": {
+                "streamer_lg_1": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                "streamer_lg_2": [
+                    1,
+                    2,
+                    3
+                ]
+            },
+            "type": "ts-generic",
+            "options": {
+                "type": "standard",
+                "streamAdaptationFamily": "saf_2",
+                "archiveLifecycle": [
+                    {
+                        "action": "delete-unused-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    },
+                    {
+                        "action": "delete-all-data",
+                        "disk": "disk1",
+                        "durationOffset": 1980
+                    }
+                ],
+                "dvbTxtConversion:": "true",
+                "dvbSubConversion": "true"
+            }
+        }
+    },
+    "npvr": {
+        "npvr_1": {
+            "source_channel": "channel_1_scr",
+            "npvr_duration": 300,
+            "npvr_range": 600,
+            "nb_npvr_per_channel": 3
+        },
+        "npvr_2": {
+            "source_channel": "channel_2",
+            "npvr_duration": 300,
+            "npvr_range": 600,
+            "channel_restriction": [
+                "channel_2_000",
+                "channel_2_002"
+            ],
+            "nb_npvr_per_channel": 2
+        }
+    },
+    "vod": {
+        "vod_from_npvr_1": {
+            "streamAdaptationFamily": "saf_1",
+            "nb_vod": 1
+        },
+        "vod_2": {
+            "streamAdaptationFamily": "saf_2",
+            "source_uri": [
+                "https://nas04.anevia.com:5001/Videos-PCAP/Bowmore/Vod/Generic/Roary/Generic-Roary.txt"
+            ],
+            "nb_vod": 1
+        }
+    },
+    "sources": {
+        "streamer_lg_1": {
+            "ip": "239.10.0.1",
+            "interface": "lan1.42",
+            "source_ports": [
+                "20000",
+                "20001",
+                "20002",
+                "20003",
+                "20004",
+                "20005",
+                "20010",
+                "20011",
+                "20012"
+            ]
+        },
+        "streamer_lg_2": {
+            "ip": "239.2.2.4",
+            "interface": "lan1.42",
+            "source_ports": [
+                "1234",
+                "1235",
+                "1236",
+                "1237",
+                "1238"
+            ]
+        }
+    },
+    "scrambling_conf": {
+        "scramblingConf": [
+            {
+                "name": "_default",
+                "value": {
+                    "cpix": {
+                        "serverName": "warehouse",
+                        "cpixId": "scrambling.cpix"
+                    }
+                }
+            }
+        ]
+    }
+}

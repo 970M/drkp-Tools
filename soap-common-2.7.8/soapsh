@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+
+# helper methods
+import time
+def soaptime(t=None, dt=None):
+    if t is None:
+        t = time.time()
+    if dt is not None:
+        t += dt
+    t = time.localtime(t)
+    s = time.strftime('%Y-%m-%dT%H:%M:%S', t)
+    dt = time.timezone if t.tm_isdst != 1 else time.altzone
+    return '%s%+0.2d:%0.2d' % (s, -dt // 3600, int(-dt // 60) % 60)
+
+
+def docrd(cl):
+    # try to get the documentation page for the right version
+    soap_name = cl.soap_name
+    if soap_name is None:
+        raise Exception("cannot retrieve SOAP interface name")
+    try:
+        version = cl.Get_version()
+    except Exception:
+        version = None
+    if version is None:
+        path = 'heads/master'
+    elif version.endswith('~branch'):
+        path = 'heads/' + version.rsplit('~branch', 1)[0]
+    elif '~' in version:
+        path = 'heads/master'
+    else:
+        path = 'tags/' + version
+    url = "http://doc-rd.anevia.com/soap/soap-%s/%s/" % (soap_name, path)
+    import webbrowser
+    webbrowser.open(url)
+    print("Documentation opened in browser: %s" % url)
+
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(usage="%(prog)s [options] [interface] server")
+
+    parser.add_argument('interface', nargs='?', help="SOAP interface name (e.g. 'ott')")
+    parser.add_argument('server', help="SOAP server hostname or URI")
+    parser.add_argument('-u', '--username', help="authentication username (default: 'admin')")
+    parser.add_argument('-p', '--password', dest='password', help="authentication password (default: 'paris')")
+    parser.add_argument('--no-auth', action='store_true', help="to disable authentication")
+    parser.add_argument('-s', '--script', help="run given script")
+    parser.add_argument('-i', '--interactive', action='store_true', help="run interactively (after script if any)")
+
+    args = parser.parse_args()
+    if args.script is None:
+        args.interactive = True
+
+    if args.no_auth:
+        auth = None
+    else:
+        if args.username is None:
+            args.username = 'admin'
+        if args.password is None:
+            args.password = 'paris'
+        auth = (args.username, args.password)
+
+    import suds
+    if suds.__version__ < '0.4':
+        # monkey patch a suds class to have an understandable message on
+        # authentication error (401)
+        class SoapClient(suds.client.SoapClient):
+            def failed(self, binding, error):
+                raise error
+        suds.client.SoapClient = SoapClient
+
+    import SoapClient
+    cl = SoapClient.SoapClient(args.server, args.interface, auth=auth)
+    local = {'cl': cl, 'soaptime': soaptime, 'time': time, 'docrd': lambda: docrd(cl)}
+
+    # Define a method to start an interpreter
+    # Use IPython if available, standard code module otherwise
+    try:
+        import IPython
+
+        def interact(banner):
+            if hasattr(IPython, 'frontend'):
+                terminal = IPython.frontend.terminal
+            else:
+                terminal = IPython.terminal
+            terminal.embed.InteractiveShellEmbed(
+                config=terminal.ipapp.load_default_config(),
+                banner1=banner, user_ns=local,
+            )()
+    except ImportError:
+        import code
+
+        def interact(banner):
+            code.interact(banner, local=local)
+
+    if not args.interactive:
+        local['interact'] = interact
+    if args.script:
+        with open(args.script) as f:
+            exec(f.read(), dict(__file__=args.script, **local))
+    if args.interactive:
+        banner = "SOAP shell for soap-%s at %s" % (cl.intf.namespace, args.server)
+        interact(banner)
+
+
+if __name__ == '__main__':
+    main()

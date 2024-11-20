@@ -3,7 +3,7 @@ import argparse
 from SoapClient import SoapClient
 import importlib.util
 
-MODULE_PATH = "/home/gdaguet/bin/soap-common-2.7.8/SoapClient.py"
+MODULE_PATH = "/home/gdaguet/src/Workspace/Repos/soap-common/SoapClient.py"
 MODULE_NAME = "SoapClient"
 
 spec = importlib.util.spec_from_file_location(MODULE_NAME, MODULE_PATH)

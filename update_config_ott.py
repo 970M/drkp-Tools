@@ -11,7 +11,7 @@ import SoapClient
 
 logger = logging.getLogger()
 
-HOST = "https://dvr1.gen10.lab1.anevia.com:8443"
+HOST = "https://dvr2.gen10.lab1.anevia.com:8443"
 # HOST = "https://nea-live-ref.lab1.anevia.com:8443"
 SUT_USER = "admin"
 SUT_PWD = "paris"
@@ -50,6 +50,17 @@ def update_sourceUri(soap_client, channel_prop):
     return option
 
 
+def update_codec_private_data_changes(channel_props):
+
+    channel_props["conf"]["options"]["ignoreVideoCodecPrivateDataChanges"] = True
+
+    option = {"ignoreVideoCodecPrivateDataChanges": True}
+
+    # option = {"options": {"ignoreVideoCodecPrivateDataChanges": True}}
+
+    return option
+
+
 def main():
     # Initialize an ASOAP object
     sys.path.append(os.path.dirname(os.path.realpath(__file__)))
@@ -65,12 +76,19 @@ def main():
         print(live_channel)
         # Get the sourceUris
         channel_props = soap_client.Get_live_channel_props(live_channel)
-
-        print(channel_props)
+        print(channel_props["conf"]["options"]["ignoreVideoCodecPrivateDataChanges"])
         # channel_props_updated = update_sourceUri(soap_client, channel_props)
 
+        channel_props_updated = update_codec_private_data_changes(channel_props)
+
         # Update the channel
-        # soap_client.Modify_live_channel(live_channel, channel_props_updated)
+        try:
+            print(f"Updating channel {live_channel}")
+            print(channel_props_updated)
+            soap_client.Modify_live_channel(live_channel, channel_props_updated)
+        except Exception as e:
+            print(f"Error during updating {live_channel}")
+            print(e)
 
 
 if __name__ == "__main__":
